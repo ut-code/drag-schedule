@@ -1,7 +1,10 @@
 import express from "express";
+import cors from "cors";
 const app = express();
 
-app.get("/", (request:any, response:any) => {
+app.use(cors());
+
+app.get("/message", (request:any, response:any) => {
   response.send("Hello World!");
 });
 
