@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
+
+      - name: Run ESLint
+        run: npx eslint --max-warnings 0 .
+        shell: bash
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
+
+      - name: Run Prettier
+        run: npx prettier --check .
+        shell: bash
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages
+        run: npm ci
+        shell: bash
+
+      - name: Type Check
+        run: npm run type-check
+        shell: bash
+
+  build:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install Node Packages (Backend)
+        run: cd backend && npm ci
+        shell: bash
+
+      - name: Build Backend
+        run: cd backend && npm run build
+        shell: bash
+
+      - name: Install Node Packages (Frontend)
+        run: cd frontend && npm ci
+        shell: bash
+
+      - name: Build Frontend
+        run: cd frontend && npm run build
+        shell: bash
