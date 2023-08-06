@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 const app = express();
 const client = new PrismaClient();
 
-app.use(cors());
+app.use(cors({ origin: process.env.WEB_ORIGIN }));
 app.use(express.json());
 
 app.get("/messages", async (request, response) => {
