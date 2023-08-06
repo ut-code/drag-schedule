@@ -5,11 +5,17 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier --write .",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "prepare": "husky install"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "eslint": "^8.46.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "prettier": "3.0.1"
