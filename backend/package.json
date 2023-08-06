@@ -7,7 +7,8 @@
     "start": "node dist/main.js",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "seed:develop": "ts-node prisma/seed.ts"
+    "seed:develop": "ts-node prisma/seed.ts",
+    "db-push": "prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^5.1.1",

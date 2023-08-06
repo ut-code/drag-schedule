@@ -1,0 +1,32 @@
+services:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/backend
+      - node_modules_backend:/backend/node_modules
+    ports:
+      - 3000:3000
+    command: bash -c 'if [ ! -f ".env" ]; then cp ".env.sample" ".env"; fi && npm run db-push && npm run dev'
+    depends_on:
+      - database
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/frontend
+      - node_modules_frontend:/frontend/node_modules
+    ports:
+      - 5173:5173
+    command: bash -c 'if [ ! -f ".env" ]; then cp ".env.sample" ".env"; fi && npm run dev -- --host'
+
+volumes:
+  node_modules_backend:
+  node_modules_frontend:
