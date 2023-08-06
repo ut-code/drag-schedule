@@ -11,7 +11,7 @@
     "type-check:frontend": "cd frontend && npm run type-check",
     "prepare": "husky install",
     "setup": "npm run setup:env && npm run setup:install",
-    "setup:env": "cp backend/.env.example backend/.env && cp frontend/.env.example frontend/.env",
+    "setup:env": "if [ ! -f 'backend/.env' ]; then cp 'backend/.env.sample' 'backend/.env'; fi && if [ ! -f 'frontend/.env' ]; then cp 'frontend/.env.sample' 'frontend/.env'; fi",
     "setup:install": "npm ci && npm run backend:install && npm run frontend:install",
     "backend:install": "cd backend && npm ci",
     "frontend:install": "cd frontend && npm ci",
