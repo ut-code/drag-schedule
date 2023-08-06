@@ -6,41 +6,41 @@ interface Message {
   content: string;
 }
 
+async function getMessages(): Promise<Message[]> {
+  const response = await fetch(getMessagesApi);
+  return await response.json();
+}
+
+async function sendMessage(newMessageContent: string) {
+  const response = await fetch(postSendMessageApi, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      messageContent: newMessageContent,
+    }),
+  });
+  if (response.ok) {
+    return;
+  } else {
+    throw new Error("Error sending message");
+  }
+}
+
 function App() {
   const [newMessageContent, setNewMessageContent] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
 
-  async function fetchMessages(): Promise<Message[]> {
-    const response = await fetch(getMessagesApi);
-    return await response.json();
-  }
-
   useEffect(() => {
     const timerId = setInterval(async () => {
-      setMessages(await fetchMessages());
+      setMessages(await getMessages());
     }, 1000);
 
     return () => {
       clearInterval(timerId);
     };
   }, []);
-
-  async function sendMessage(newMessageContent: string) {
-    const response = await fetch(postSendMessageApi, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        messageContent: newMessageContent,
-      }),
-    });
-    if (response.ok) {
-      setNewMessageContent("");
-    } else {
-      throw new Error("Error sending message");
-    }
-  }
 
   return (
     <>
@@ -59,6 +59,7 @@ function App() {
       <button
         onClick={async () => {
           await sendMessage(newMessageContent);
+          setNewMessageContent("");
         }}
       >
         Send

@@ -14,10 +14,10 @@ app.get("/messages", async (request, response) => {
 });
 
 app.post("/send", async (request, response) => {
-  const newMessage = request.body.messageContent;
+  const newMessageContent = request.body.messageContent;
   await client.message.create({
     data: {
-      content: newMessage,
+      content: newMessageContent,
     },
   });
   response.json({ message: "Message sent!" });
