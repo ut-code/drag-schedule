@@ -1,14 +1,21 @@
 {
-  "name": "drag-schedule",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "schedule",
+  "version": "0.0.0",
+  "description": "Schedule Application",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
-    "prepare": "husky install"
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky install",
+    "setup": "npm run setup:env && npm run setup:install",
+    "setup:env": "cp backend/.env.example backend/.env && cp frontend/.env.example frontend/.env",
+    "setup:install": "npm ci && npm run backend:install && npm run frontend:install",
+    "backend:install": "cd backend && npm ci",
+    "frontend:install": "cd frontend && npm ci",
+    "backend:dev": "cd backend && npm run dev",
+    "frontend:dev": "cd frontend && npm run dev"
   },
-  "author": "",
+  "author": "ut.code();",
   "license": "MIT",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.2.1",
