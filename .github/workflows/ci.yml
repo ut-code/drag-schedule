@@ -61,16 +61,24 @@ jobs:
           node-version: latest
           cache: npm
 
-      - name: Install Node Packages
-        run: npm ci
+      - name: Install Node Packages (Backend)
+        run: cd backend && npm ci
         shell: bash
 
-      - name: Type Check
-        run: npm run type-check
+      - name: Type Check Backend
+        run: cd backend && npm run type-check
+        shell: bash
+
+      - name: Install Node Packages (Frontend)
+        run: cd frontend && npm ci
+        shell: bash
+
+      - name: Type Check Frontend
+        run: cd frontend && npm run type-check
         shell: bash
 
   build:
-    name: Build Backend
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
