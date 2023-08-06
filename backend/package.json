@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "ts-node-dev src/main.ts",
     "build": "tsc",
-    "start": "node dist/main.js",
+    "start": "node dist/src/main.js",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "seed:develop": "ts-node prisma/seed.ts",
