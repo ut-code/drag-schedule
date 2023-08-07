@@ -2,9 +2,9 @@
   "name": "backend",
   "version": "0.0.1",
   "scripts": {
-    "dev": "ts-node-dev src/main.ts",
+    "dev": "ts-node-dev src/app.ts",
     "build": "tsc",
-    "start": "node dist/src/main.js",
+    "start": "node dist/src/app.js",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "seed:develop": "ts-node prisma/seed.ts",
